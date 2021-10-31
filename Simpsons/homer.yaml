@@ -52,8 +52,6 @@ spec:
     type: Recreate
   template:
     metadata:
-      annotations:
-        runtimeClassName: kata
       creationTimestamp: null
       labels:
         app: homer
@@ -75,6 +73,7 @@ spec:
           name: container-helper-yaml
       dnsPolicy: ClusterFirst
       restartPolicy: Always
+      runtimeClassName: kata
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
