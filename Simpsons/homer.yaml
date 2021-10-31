@@ -52,6 +52,8 @@ spec:
     type: Recreate
   template:
     metadata:
+      annotations:
+        runtimeClassName: kata
       creationTimestamp: null
       labels:
         app: homer
