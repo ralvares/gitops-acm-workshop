@@ -73,7 +73,7 @@ spec:
           name: container-helper-yaml
       dnsPolicy: ClusterFirst
       restartPolicy: Always
-      runtimeClassName: kata
+      #runtimeClassName: kata
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
