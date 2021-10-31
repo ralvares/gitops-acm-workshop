@@ -4,6 +4,6 @@ kind: Kustomization
 namespace: bouvier
 
 resources:
-#- netpol
+- netpol
 - patty.yaml
 - selma.yaml

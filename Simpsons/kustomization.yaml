@@ -4,6 +4,6 @@ kind: Kustomization
 namespace: simpson
 
 resources:
-#- netpol
+- netpol
 - homer.yaml
 - marge.yaml
