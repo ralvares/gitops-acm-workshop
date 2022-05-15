@@ -90,7 +90,7 @@ metadata:
   name: homer-web
   namespace: simpson
 spec:
-  host: homer.simpson.ocp.example.local
+  host: homer.simpson.apps.hub.ralvares.com
   port:
     targetPort: 8080
   to:
