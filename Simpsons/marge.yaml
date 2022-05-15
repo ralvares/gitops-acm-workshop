@@ -89,7 +89,7 @@ metadata:
   name: marge-web
   namespace: simpson
 spec:
-  host: marge.simpson.ocp.example.local
+  host: marge.simpson.apps.hub.ralvares.com
   port:
     targetPort: 8080
   to:
