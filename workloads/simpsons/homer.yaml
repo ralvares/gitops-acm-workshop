@@ -52,7 +52,7 @@ spec:
                 for dst in marge-service.simpson selma-service.bouvier patty-service.bouvier
                 
                 do
-                _RETURN=$(curl -o /dev/null -k -i -sL --post302 -w "%{http_code}" "${dst}:5000")
+                _RETURN=$(curl --connect-timeout 3 -o /dev/null -k -i -sL --post302 -w "%{http_code}" "${dst}:5000")
                 if [ $_RETURN == "200" ] ;
                 then
                     echo "from homer-service.simpson to ${dst} -> OK"
@@ -60,7 +60,7 @@ spec:
                     echo "from homer-service.simpson to ${dst} -> FAIL"
                 fi
                 done
-                sleep 60
+                sleep 10
             done
         imagePullPolicy: Always
         name: container-helper
@@ -72,18 +72,3 @@ spec:
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
----
-apiVersion: route.openshift.io/v1
-kind: Route
-metadata:
-  labels:
-    app: homer
-  name: homer-web
-  namespace: simpson
-spec:
-  port:
-    targetPort: 5000
-  to:
-    kind: Service
-    name: homer-service
-    weight: 100
