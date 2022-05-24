@@ -32,6 +32,7 @@ spec:
       creationTimestamp: null
       labels:
         app: homer
+        family: simpson
     spec:
       containers:
       - env:

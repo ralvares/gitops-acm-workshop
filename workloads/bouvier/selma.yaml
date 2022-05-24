@@ -32,6 +32,7 @@ spec:
       creationTimestamp: null
       labels:
         app: selma
+        family: bouvier
     spec:
       containers:
       - env:

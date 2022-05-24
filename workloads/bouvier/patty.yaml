@@ -32,6 +32,7 @@ spec:
       creationTimestamp: null
       labels:
         app: patty
+        family: bouvier
     spec:
       containers:
       - env:
