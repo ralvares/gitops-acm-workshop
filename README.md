@@ -11,6 +11,6 @@
 
 
 ## Kustomize
-``````
+```
 oc get deployments -n openshift-image-registry image-registry --template '{{ range $x := .spec.template.spec.containers  }} {{- $x.image -}} {{ end }}'
 ```
