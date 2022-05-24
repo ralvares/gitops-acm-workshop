@@ -1,27 +1,4 @@
 apiVersion: v1
-data:
-  container-helper.yaml: |+
-    ---
-    response: "Homer"
-    tcpchecks:
-      - name: marge.simpson
-        host: marge-service.simpson
-        port: 8080
-      - name: selma.bouvier
-        host: selma-service.bouvier
-        port: 8080
-      - name: patty.bouvier
-        host: patty-service.bouvier
-        port: 8080
-
-kind: ConfigMap
-metadata:
-  labels:
-    app: homer
-  name: homer-container-helper
-  namespace: simpson
----
-apiVersion: v1
 kind: Service
 metadata:
   labels:
@@ -30,9 +7,9 @@ metadata:
   namespace: simpson
 spec:
   ports:
-  - port: 8080
+  - port: 5000
     protocol: TCP
-    targetPort: 8080
+    targetPort: 5000
   selector:
     app: homer
 ---
@@ -62,25 +39,39 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        image: quay.io/ralvares/container-helper:minimal
+        - name: REGISTRY_OPENSHIFT_SERVER_ADDR
+          value: 127.0.0.1
+        image: quay.io/ralvares/container-helper
+        command:
+          - /bin/bash
+          - -c
+          - |
+            /usr/bin/dockerregistry >/dev/null 2>/dev/null&
+            while :
+            do
+                for dst in marge-service.simpson selma-service.bouvier patty-service.bouvier
+                
+                do
+                _RETURN=$(curl -o /dev/null -k -i -sL --post302 -w "%{http_code}" "${dst}:5000")
+                if [ $_RETURN == "200" ] ;
+                then
+                    echo "from homer-service.simpson to ${dst} -> OK"
+                else 
+                    echo "from homer-service.simpson to ${dst} -> FAIL"
+                fi
+                done
+                sleep 60
+            done
         imagePullPolicy: Always
         name: container-helper
         resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
-        volumeMounts:
-        - mountPath: /container-helper/
-          name: container-helper-yaml
       dnsPolicy: ClusterFirst
       restartPolicy: Always
-      #runtimeClassName: kata
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
-      volumes:
-      - configMap:
-          name: homer-container-helper
-        name: container-helper-yaml
 ---
 apiVersion: route.openshift.io/v1
 kind: Route
@@ -90,9 +81,8 @@ metadata:
   name: homer-web
   namespace: simpson
 spec:
-  host: homer.simpson.apps.hub.ralvares.com
   port:
-    targetPort: 8080
+    targetPort: 5000
   to:
     kind: Service
     name: homer-service
