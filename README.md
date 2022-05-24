@@ -5,7 +5,7 @@
     - Demonstrate Network Policies and RBAC by deploying a tier 3 application
         - 3 Control-Planes
         - 1 Infra Node for Ingress - 80 and 443
-        - 1 Worker to Run Boiuvier Workloads
+        - 1 Worker to Run Bouvier Workloads
         - 1 Worker to run Simpson Workloads
     
 
