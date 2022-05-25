@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: policy-generator-demo
+  name: policy-generator-openshift-hardening
 ---
 apiVersion: app.k8s.io/v1beta1
 kind: Application
 metadata:
-  name: policy-generator-demo
-  namespace: policy-generator-demo
+  name: policy-generator-openshift-hardening
+  namespace: policy-generator-openshift-hardening
 spec:
   componentKinds:
     - group: apps.open-cluster-management.io
@@ -17,15 +17,15 @@ spec:
       - key: app
         operator: In
         values:
-          - policy-generator-demo
+          - policy-generator-openshift-hardening
 ---
 apiVersion: apps.open-cluster-management.io/v1
 kind: Channel
 metadata:
   annotations:
     apps.open-cluster-management.io/reconcile-rate: medium
-  name: policy-generator-demo
-  namespace: policy-generator-demo
+  name: policy-generator-openshift-hardening
+  namespace: policy-generator-openshift-hardening
 spec:
   type: Git
   pathname: https://github.com/ralvares/gitops-workloads.git
@@ -35,26 +35,26 @@ kind: Subscription
 metadata:
   annotations:
     apps.open-cluster-management.io/git-branch: main
-    apps.open-cluster-management.io/git-path: infrastructure/policies/kustomize
+    apps.open-cluster-management.io/git-path: infrastructure/policies/policy-sets/openshift-hardening
     apps.open-cluster-management.io/reconcile-option: merge
   labels:
-    app: policy-generator-demo
-  name: policy-generator-demo-subscription
-  namespace: policy-generator-demo
+    app: policy-generator-openshift-hardening
+  name: policy-generator-openshift-hardening-subscription
+  namespace: policy-generator-openshift-hardening
 spec:
-  channel: policy-generator-demo/policy-generator-demo
+  channel: policy-generator-openshift-hardening/policy-generator-openshift-hardening
   placement:
     placementRef:
       kind: PlacementRule
-      name: policy-generator-demo-placement
+      name: policy-generator-openshift-hardening-placement
 ---
 apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
 metadata:
   labels:
-    app: policy-generator-demo
-  name: policy-generator-demo-placement
-  namespace: policy-generator-demo
+    app: policy-generator-openshift-hardening
+  name: policy-generator-openshift-hardening-placement
+  namespace: policy-generator-openshift-hardening
 spec:
   clusterConditions:
     - status: "True"

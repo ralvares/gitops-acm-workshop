@@ -1,5 +1,0 @@
-kind: Secret
-metadata:
-  name: kubeadmin
-  namespace: kube-system
-type: Opaque
