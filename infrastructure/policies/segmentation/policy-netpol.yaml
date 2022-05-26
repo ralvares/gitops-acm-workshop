@@ -1,7 +1,7 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
-  name: sample-network-policy-99
+  name: sample-network-policy
   annotations:
     policy.open-cluster-management.io/standards: NIST SP 800-53
     policy.open-cluster-management.io/categories: CM Configuration Management
@@ -18,6 +18,7 @@ spec:
           namespaceSelector:
             exclude:
               - kube-*
+              - openshift-*
             include:
               - default
           object-templates:
@@ -48,8 +49,14 @@ spec:
           namespaceSelector:
             exclude:
               - kube-*
+              - openshift*
+              - stackrox
+              - open-cluster-management*
+              - rhacs-operator
+              - assisted-installer
             include:
               - default
+              - "*"
           object-templates:
             - complianceType: musthave
               objectDefinition:
@@ -71,6 +78,7 @@ spec:
           namespaceSelector:
             exclude:
               - kube-*
+              - openshift-*
             include:
               - default
           object-templates:
@@ -96,6 +104,7 @@ spec:
           namespaceSelector:
             exclude:
               - kube-*
+              - openshift-*
             include:
               - default
           object-templates:
@@ -130,7 +139,7 @@ placementRef:
   kind: PlacementRule
   apiGroup: apps.open-cluster-management.io
 subjects:
-- name: sample-network-policy-99
+- name: sample-network-policy
   kind: Policy
   apiGroup: policy.open-cluster-management.io
 ---
