@@ -64,4 +64,4 @@ spec:
     type: ManagedClusterConditionAvailable
   clusterSelector:
     matchExpressions:
-      - {key: name, operator: In, values: ["spoke03"]}
+      - {key: name, location: In, values: ["usa"]}
