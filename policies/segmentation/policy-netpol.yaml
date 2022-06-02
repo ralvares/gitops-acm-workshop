@@ -24,7 +24,7 @@ spec:
               - rhacs-operator
               - assisted-installer
             include:
-              - simpsons
+              - simpson
               - bouvier
               - flanders
           object-templates:
@@ -50,7 +50,7 @@ spec:
               - kube-*
               - openshift-*
             include:
-              - simpsons
+              - simpson
               - bouvier
               - flanders
           object-templates:
@@ -67,7 +67,7 @@ spec:
                           - podSelector: {}
           severity: low
           remediationAction: inform
-  remediationAction: inform
+  remediationAction: enforce
 ---
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
