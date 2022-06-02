@@ -100,4 +100,4 @@ spec:
     type: ManagedClusterConditionAvailable
   clusterSelector:
     matchExpressions:
-      - {key: name, operator: In, values: ["spoke03"]}
+      - {key: env, operator: In, values: ["prod"]}
