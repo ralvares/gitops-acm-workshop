@@ -39,34 +39,6 @@ spec:
                     ingress: []
           severity: low
           remediationAction: inform
-    - objectDefinition:
-        apiVersion: policy.open-cluster-management.io/v1
-        kind: ConfigurationPolicy
-        metadata:
-          name: allow-same-namespace
-        spec:
-          namespaceSelector:
-            exclude:
-              - kube-*
-              - openshift-*
-            include:
-              - simpson
-              - bouvier
-              - flanders
-          object-templates:
-            - complianceType: musthave
-              objectDefinition:
-                apiVersion: networking.k8s.io/v1
-                kind: NetworkPolicy
-                metadata:
-                  name: allow-same-namespace
-                spec:
-                  podSelector:
-                    ingress:
-                      - from:
-                          - podSelector: {}
-          severity: low
-          remediationAction: inform
   remediationAction: enforce
 ---
 apiVersion: policy.open-cluster-management.io/v1

@@ -6,6 +6,8 @@ namespace: bouvier
 resources:
 - patty.yaml
 - selma.yaml
+- netpol/allow-from-marge.yaml
+- netpol/allow-from-bouvier-to-bouvier.yaml
 
 images:
 - name: quay.io/ralvares/container-helper
