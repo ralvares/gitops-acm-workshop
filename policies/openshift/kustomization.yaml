@@ -4,7 +4,6 @@ resources:
 - openshift-hardening-checkfips.yaml
 - openshift-hardening-certs.yaml
 - openshift-hardening-checkclusteroperator.yaml
-- openshift-hardening-checkfips.yaml
 - openshift-hardening-compliance-operator-cis-scan.yaml
 - openshift-hardening-compliance-operator-install.yaml
 - openshift-hardening-config-audit.yaml
