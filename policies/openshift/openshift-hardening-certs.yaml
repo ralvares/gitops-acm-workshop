@@ -121,7 +121,7 @@ spec:
       type: ManagedClusterConditionAvailable
   clusterSelector:
     matchExpressions:
-      - key: vendor
+      - key: name
         operator: In
         values:
-          - OpenShift
+          - spoke03
