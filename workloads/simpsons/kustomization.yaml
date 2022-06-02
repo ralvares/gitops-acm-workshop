@@ -6,6 +6,8 @@ namespace: simpson
 resources:
 - homer.yaml
 - marge.yaml
+- netpol/allow-from-bouvier-to-marge.yaml
+- netpol/allow-from-simpson-to-simpson.yaml
 
 images:
 - name: quay.io/ralvares/container-helper

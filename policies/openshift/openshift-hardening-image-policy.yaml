@@ -7,14 +7,14 @@ metadata:
     policy.open-cluster-management.io/categories: CM Configuration Management
     policy.open-cluster-management.io/controls: CM-2 Baseline Configuration
 spec:
-  remediationAction: inform
+  remediationAction: enforce
   disabled: false
   policy-templates:
     - objectDefinition:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: image-policy-example
+          name: trusted-source-image-policy-example
         spec:
           remediationAction: enforce
           severity: low
@@ -34,6 +34,7 @@ spec:
                   registrySources:
                     allowedRegistries:
                       - myregistry.com
+                      - gcr.io
                       - registry.redhat.io
                       - registry.access.redhat.com
                       - quay.io
@@ -41,24 +42,27 @@ spec:
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
-  name: binding-image-policy
+  name: binding-trusted-source-image-policy
 placementRef:
-  name: placement-image-policy
+  name: placement-trusted-source-image-policy
   kind: PlacementRule
   apiGroup: apps.open-cluster-management.io
 subjects:
-- name: image-policy
+- name: trusted-source-image-policy
   kind: Policy
   apiGroup: policy.open-cluster-management.io
 ---
 apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
 metadata:
-  name: placement-image-policy
+  name: placement-trusted-source-image-policy
 spec:
   clusterConditions:
   - status: "True"
     type: ManagedClusterConditionAvailable
   clusterSelector:
     matchExpressions:
-      - {key: vendor, operator: In, values: ["OpenShift"]}
+      - key: env
+        operator: In
+        values:
+          - prod

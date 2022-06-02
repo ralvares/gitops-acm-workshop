@@ -1,2 +1,17 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+
+namespace: policies
+
+resources:
+- openshift-hardening-checkfips.yaml
+- openshift-hardening-certs.yaml
+- openshift-hardening-compliance-operator-cis-scan.yaml
+- openshift-hardening-compliance-operator-install.yaml
+- openshift-hardening-config-audit.yaml
+- openshift-hardening-etcdencryption.yaml
+- openshift-hardening-file-integrity-node-status.yaml
+- openshift-hardening-file-integrity-operator.yaml
+- openshift-hardening-image-policy.yaml
+- openshift-hardening-remove-kubeadmin.yaml
+- openshift-hardening-scc-restricted.yaml

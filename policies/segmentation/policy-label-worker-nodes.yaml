@@ -23,7 +23,7 @@ spec:
                 kind: Node
                 metadata:
                   labels:
-                    family: "simpsons"
+                    family: "simpson"
                   name: worker01
           severity: low
     - objectDefinition:
@@ -43,6 +43,7 @@ spec:
                     family: "bouvier"
                   name: worker02
           severity: low
+  remediationAction: enforce
 ---
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
