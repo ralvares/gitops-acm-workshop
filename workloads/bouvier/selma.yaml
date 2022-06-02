@@ -34,8 +34,6 @@ spec:
         app: selma
         family: bouvier
     spec:
-      nodeSelector:
-        family: "bouvier"
       containers:
       - env:
         - name: NAMESPACE
