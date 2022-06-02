@@ -1,9 +1,0 @@
-kind: Project
-apiVersion: project.openshift.io/v1
-metadata:
-  name: simpson
-  labels:
-    house: simpsons
-  annotations:
-    openshift.io/node-selector: "house=simpsons"
-    scheduler.alpha.kubernetes.io/defaultTolerations: '[{"Key": "house", "Operator":"Equal", "Value": "simpsons", "effect": "NoSchedule"}]'

@@ -1,7 +1,7 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
-  name: sample-network-policy
+  name: policy-default-network-policies
   annotations:
     policy.open-cluster-management.io/standards: NIST SP 800-53
     policy.open-cluster-management.io/categories: CM Configuration Management
@@ -9,37 +9,6 @@ metadata:
 spec:
   disabled: false
   policy-templates:
-    - objectDefinition:
-        apiVersion: policy.open-cluster-management.io/v1
-        kind: ConfigurationPolicy
-        metadata:
-          name: allow-http-and-https
-        spec:
-          namespaceSelector:
-            exclude:
-              - kube-*
-              - openshift-*
-            include:
-              - default
-          object-templates:
-            - complianceType: musthave
-              objectDefinition:
-                apiVersion: networking.k8s.io/v1
-                kind: NetworkPolicy
-                metadata:
-                  name: allow-http-and-https
-                spec:
-                  ingress:
-                    - ports:
-                        - port: 80
-                          protocol: TCP
-                        - port: 443
-                          protocol: TCP
-                  podSelector:
-                    matchLabels:
-                      role: frontend
-          remediationAction: inform
-          severity: low
     - objectDefinition:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
@@ -55,8 +24,9 @@ spec:
               - rhacs-operator
               - assisted-installer
             include:
-              - default
-              - "*"
+              - simpsons
+              - bouvier
+              - flanders
           object-templates:
             - complianceType: musthave
               objectDefinition:
@@ -80,7 +50,9 @@ spec:
               - kube-*
               - openshift-*
             include:
-              - default
+              - simpsons
+              - bouvier
+              - flanders
           object-templates:
             - complianceType: musthave
               objectDefinition:
@@ -95,62 +67,29 @@ spec:
                           - podSelector: {}
           severity: low
           remediationAction: inform
-    - objectDefinition:
-        apiVersion: policy.open-cluster-management.io/v1
-        kind: ConfigurationPolicy
-        metadata:
-          name: allow-pod-and-namespace-both
-        spec:
-          namespaceSelector:
-            exclude:
-              - kube-*
-              - openshift-*
-            include:
-              - default
-          object-templates:
-            - complianceType: musthave
-              objectDefinition:
-                apiVersion: networking.k8s.io/v1
-                kind: NetworkPolicy
-                metadata:
-                  name: allow-pod-and-namespace-both
-                spec:
-                  podSelector:
-                    matchLabels: 
-                      name: test-pods
-                  ingress:
-                    - from:
-                      - namespaceSelector: 
-                          matchLabels: 
-                            project: project_name
-                        podSelector:
-                          matchLabels: 
-                            name: test-pods
-              severity: low
-              remediationAction: inform
   remediationAction: inform
 ---
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
-  name: binding-sample-network-policy
+  name: binding-policy-default-network-policies
 placementRef:
-  name: placement-sample-network-policy
+  name: placement-policy-default-network-policies
   kind: PlacementRule
   apiGroup: apps.open-cluster-management.io
 subjects:
-- name: sample-network-policy
+- name: policy-default-network-policies
   kind: Policy
   apiGroup: policy.open-cluster-management.io
 ---
 apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
 metadata:
-  name: placement-sample-network-policy
+  name: placement-policy-default-network-policies
 spec:
   clusterConditions:
   - status: "True"
     type: ManagedClusterConditionAvailable
   clusterSelector:
     matchExpressions:
-      - {key: environment, operator: In, values: ["dev"]}
+      - {key: name, operator: In, values: ["spoke03"]}

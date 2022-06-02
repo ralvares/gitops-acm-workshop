@@ -57,11 +57,11 @@ spec:
           objectDefinition:
             apiVersion: v1
             data:
-              admission-control-cert.pem: '{{ fromSecret "policies" "admission-control-tls"
+              admission-control-cert.pem: '{{ fromSecret "stackrox" "admission-control-tls"
                 "admission-control-cert.pem" }}'
-              admission-control-key.pem: '{{ fromSecret "policies" "admission-control-tls"
+              admission-control-key.pem: '{{ fromSecret "stackrox" "admission-control-tls"
                 "admission-control-key.pem" }}'
-              ca.pem: '{{ fromSecret "policies" "admission-control-tls" "ca.pem"
+              ca.pem: '{{ fromSecret "stackrox" "admission-control-tls" "ca.pem"
                 }}'
             kind: Secret
             metadata:
@@ -72,10 +72,10 @@ spec:
           objectDefinition:
             apiVersion: v1
             data:
-              ca.pem: '{{ fromSecret "policies" "collector-tls" "ca.pem" }}'
-              collector-cert.pem: '{{ fromSecret "policies" "collector-tls" "collector-cert.pem"
+              ca.pem: '{{ fromSecret "stackrox" "collector-tls" "ca.pem" }}'
+              collector-cert.pem: '{{ fromSecret "stackrox" "collector-tls" "collector-cert.pem"
                 }}'
-              collector-key.pem: '{{ fromSecret "policies" "collector-tls" "collector-key.pem"
+              collector-key.pem: '{{ fromSecret "stackrox" "collector-tls" "collector-key.pem"
                 }}'
             kind: Secret
             metadata:
@@ -86,11 +86,11 @@ spec:
           objectDefinition:
             apiVersion: v1
             data:
-              acs-host: '{{ fromSecret "policies" "sensor-tls" "acs-host" }}'
-              ca.pem: '{{ fromSecret "policies" "sensor-tls" "ca.pem" }}'
-              sensor-cert.pem: '{{ fromSecret "policies" "sensor-tls" "sensor-cert.pem"
+              acs-host: '{{ fromSecret "stackrox" "sensor-tls" "acs-host" }}'
+              ca.pem: '{{ fromSecret "stackrox" "sensor-tls" "ca.pem" }}'
+              sensor-cert.pem: '{{ fromSecret "stackrox" "sensor-tls" "sensor-cert.pem"
                 }}'
-              sensor-key.pem: '{{ fromSecret "policies" "sensor-tls" "sensor-key.pem"
+              sensor-key.pem: '{{ fromSecret "stackrox" "sensor-tls" "sensor-key.pem"
                 }}'
             kind: Secret
             metadata:
@@ -149,7 +149,7 @@ spec:
       type: ManagedClusterConditionAvailable
   clusterSelector:
     matchExpressions:
-      - key: name
+      - key: vendor
         operator: In
         values:
-          - local-cluster
+          - "OpenShift"

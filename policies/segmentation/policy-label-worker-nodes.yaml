@@ -1,64 +1,70 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
-  name: image-policy
   annotations:
     policy.open-cluster-management.io/standards: NIST SP 800-53
     policy.open-cluster-management.io/categories: CM Configuration Management
     policy.open-cluster-management.io/controls: CM-2 Baseline Configuration
+  name: policy-spoke03-tag-workers
 spec:
-  remediationAction: inform
   disabled: false
   policy-templates:
     - objectDefinition:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: image-policy-example
+          name: policy-spoke03-tag-worker01
         spec:
           remediationAction: enforce
-          severity: low
-          namespaceSelector:
-            exclude:
-              - kube-*
-            include:
-              - default
           object-templates:
             - complianceType: musthave
               objectDefinition:
-                apiVersion: config.openshift.io/v1
-                kind: Image
+                apiVersion: v1
+                kind: Node
                 metadata:
-                  name: cluster
-                spec:
-                  registrySources:
-                    allowedRegistries:
-                      - myregistry.com
-                      - registry.redhat.io
-                      - registry.access.redhat.com
-                      - quay.io
+                  labels:
+                    family: "simpsons"
+                  name: worker01
+          severity: low
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-spoke03-tag-worker02
+        spec:
+          remediationAction: enforce
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: v1
+                kind: Node
+                metadata:
+                  labels:
+                    family: "bouvier"
+                  name: worker02
+          severity: low
 ---
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
-  name: binding-image-policy
+  name: binding-policy-spoke03-tag-workers
 placementRef:
-  name: placement-image-policy
+  name: cluster-spoke03
   kind: PlacementRule
   apiGroup: apps.open-cluster-management.io
 subjects:
-- name: image-policy
+- name: policy-spoke03-tag-workers
   kind: Policy
   apiGroup: policy.open-cluster-management.io
 ---
 apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
 metadata:
-  name: placement-image-policy
+  name: cluster-spoke03
 spec:
   clusterConditions:
-  - status: "True"
-    type: ManagedClusterConditionAvailable
+  - type: ManagedClusterConditionAvailable
+    status: "True"
   clusterSelector:
-    matchExpressions:
-      - {key: vendor, operator: In, values: ["OpenShift"]}
+    matchLabels:
+      name: spoke03
