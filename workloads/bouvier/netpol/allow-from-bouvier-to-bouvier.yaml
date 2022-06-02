@@ -8,6 +8,6 @@ spec:
     - from:
         - namespaceSelector:
             matchLabels:
-              house: bouvier
+              kubernetes.io/metadata.name=bouvier
   policyTypes:
     - Ingress

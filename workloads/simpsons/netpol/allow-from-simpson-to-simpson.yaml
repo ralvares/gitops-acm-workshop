@@ -8,6 +8,6 @@ spec:
     - from:
         - namespaceSelector:
             matchLabels:
-              house: simpsons
+              kubernetes.io/metadata.name=simpson
   policyTypes:
     - Ingress
