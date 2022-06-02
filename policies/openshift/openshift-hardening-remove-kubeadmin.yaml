@@ -59,4 +59,4 @@ spec:
       - key: name
         operator: In
         values:
-          - local-cluster
+          - spoke03
