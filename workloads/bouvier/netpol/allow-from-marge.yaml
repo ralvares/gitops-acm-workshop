@@ -11,6 +11,6 @@ spec:
               app: marge
           namespaceSelector:
             matchLabels:
-              kubernetes.io/metadata.name=simpson
+              kubernetes.io/metadata.name: simpson
   policyTypes:
     - Ingress
