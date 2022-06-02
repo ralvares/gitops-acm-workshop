@@ -57,7 +57,7 @@ spec:
       type: ManagedClusterConditionAvailable
   clusterSelector:
     matchExpressions:
-      - key: name
+      - key: env
         operator: In
         values:
-          - spoke03
+          - prod

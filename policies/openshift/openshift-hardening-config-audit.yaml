@@ -7,7 +7,7 @@ metadata:
     policy.open-cluster-management.io/categories: AU Audit and Accountability
     policy.open-cluster-management.io/controls: AU-3 Content of Audit Records
 spec:
-  remediationAction: enforce
+  remediationAction: inform
   disabled: false
   policy-templates:
     - objectDefinition:
@@ -58,7 +58,7 @@ spec:
       type: ManagedClusterConditionAvailable
   clusterSelector:
     matchExpressions:
-      - key: name
+      - key: env
         operator: In
         values:
-          - spoke03
+          - dev
