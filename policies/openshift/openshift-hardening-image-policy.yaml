@@ -1,7 +1,7 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
-  name: trusted-source-image-policy
+  name: trusted-source-trusted-source-image-policy
   annotations:
     policy.open-cluster-management.io/standards: NIST SP 800-53
     policy.open-cluster-management.io/categories: CM Configuration Management
@@ -14,7 +14,7 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: image-policy-example
+          name: trusted-source-image-policy-example
         spec:
           remediationAction: enforce
           severity: low
@@ -41,24 +41,27 @@ spec:
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
-  name: binding-image-policy
+  name: binding-trusted-source-image-policy
 placementRef:
-  name: placement-image-policy
+  name: placement-trusted-source-image-policy
   kind: PlacementRule
   apiGroup: apps.open-cluster-management.io
 subjects:
-- name: image-policy
+- name: trusted-source-image-policy
   kind: Policy
   apiGroup: policy.open-cluster-management.io
 ---
 apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
 metadata:
-  name: placement-image-policy
+  name: placement-trusted-source-image-policy
 spec:
   clusterConditions:
   - status: "True"
     type: ManagedClusterConditionAvailable
   clusterSelector:
     matchExpressions:
-      - {key: name, operator: In, values: ["spoke03"]}
+      - key: name
+        operator: In
+        values:
+          - spoke03
