@@ -4,3 +4,7 @@ resources:
 - bouvier
 - simpsons
 - flanders
+
+images:
+- name: quay.io/ralvares/container-helper
+  newName: quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:8901f71be47872f0346e8461f3f78f7e84fa6d8affabf70ef1e428442cce9c35
