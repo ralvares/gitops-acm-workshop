@@ -8,7 +8,7 @@ resources:
 - openshift-hardening-certs.yaml
 - openshift-hardening-compliance-operator-cis-scan.yaml
 - openshift-hardening-compliance-operator-install.yaml
-- openshift-hardening-etcdencryption.yaml
+#- openshift-hardening-etcdencryption.yaml
 - openshift-hardening-image-policy.yaml
 - openshift-hardening-remove-kubeadmin.yaml
 - openshift-hardening-scc-restricted.yaml
