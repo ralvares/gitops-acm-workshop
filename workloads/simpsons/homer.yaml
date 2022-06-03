@@ -34,8 +34,6 @@ spec:
         app: homer
         family: simpson
     spec:
-      nodeSelector:
-        family: "simpson"
       containers:
       - env:
         - name: NAMESPACE
