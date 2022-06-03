@@ -4,5 +4,4 @@ kind: Kustomization
 namespace: policies
 
 resources:
-- policy-label-worker-nodes.yaml
 - policy-netpol.yaml
