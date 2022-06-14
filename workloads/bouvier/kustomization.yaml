@@ -6,5 +6,5 @@ namespace: bouvier
 resources:
 - patty.yaml
 - selma.yaml
-- netpol/allow-from-marge.yaml
-- netpol/allow-from-bouvier-to-bouvier.yaml
+#- netpol/allow-from-marge.yaml
+#- netpol/allow-from-bouvier-to-bouvier.yaml

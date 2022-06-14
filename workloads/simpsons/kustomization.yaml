@@ -6,5 +6,5 @@ namespace: simpson
 resources:
 - homer.yaml
 - marge.yaml
-- netpol/allow-from-bouvier-to-marge.yaml
-- netpol/allow-from-simpson-to-simpson.yaml
+#- netpol/allow-from-bouvier-to-marge.yaml
+#- netpol/allow-from-simpson-to-simpson.yaml
